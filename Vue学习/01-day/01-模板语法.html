@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+</head>
+<body>
+  <div id="box">
+    <!-- 文本插值 -->
+    {{ 10+10 }}
+    <!-- 指令 -->
+    <!-- 比较危险 相信后端给传过来的数据才可以用v-html 防止XSS.csrf 跨站攻击（前端过滤，后台转义，给Cookie加上属性http） -->
+    <div v-html="myhtml"></div>
+    <!-- 绑定属性 v-bind -->
+    <div v-bind:class="isActive? 'red': 'yellow'">切换class</div>
+    <!-- 动态创建和删除 v-if true:创建 false:删除 -->
+    <!-- 动态显示和隐藏 v-show true:显示 false:隐藏 -->
+    <!-- 绑定事件 v-on -->
+    <button v-on:click="handlerClick()">click</button>
+  </div>
+  <script type="text/javascript">
+    var vm = new Vue({
+      el: '#box',
+      data: {
+        isActive: true,
+        myhtml: "<b>11111</b>"
+      },
+      methods: {
+        handlerClick(){
+          console.log('1111')
+        }
+      }
+    })
+  </script>
+  <style>
+    .red{
+      color: red;
+    }
+    .yellow{
+      color: yellow;
+    }
+  </style>
+</body>
+</html>

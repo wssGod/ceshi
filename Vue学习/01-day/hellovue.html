@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="box">
+
+  </div>
+  <script type="text/javascript">
+    var obj = {};
+
+    var obox = document.getElementById("box");
+
+    // es5定义属性的方法
+    // myname被拦截
+    Object.defineProperty(obj, "myname", {
+      get(){
+        console.log('get调用')
+      },
+      set(data){
+        console.log('set调用', data)
+        obox.innerHTML = data
+      }
+    });
+    /**
+      Vue 数据驱动的原理？ 数据更新的原理？ 响应式的原理？
+      （1）数据是通过Object.defineProperty 进行get set拦截
+      （2）通知watcher， 观察者模式。订阅发布模式，触发组件重新渲染，创建新的虚拟Dom(js对象模拟dom，对比旧的虚拟dom，找到不同的地方，以最小的代价更新节点)
+    **/
+  </script>
+</body>
+</html>
