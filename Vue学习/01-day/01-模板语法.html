@@ -20,13 +20,50 @@
     <!-- 动态显示和隐藏 v-show true:显示 false:隐藏 -->
     <!-- 绑定事件 v-on -->
     <button v-on:click="handlerClick()">click</button>
+    <!-- 循环 v-for -->
+    <ul>
+      <li v-for="myitem in dataList">
+        {{ myitem }}
+      </li>
+    </ul>
+    <!-- 双向绑定 v-model -->
+    <!-- 缩写 v-bind:src => :src -->
+    <!-- 事件绑定 v-on:src => @src -->
+    <div :class="classObj">动态设置class需求-对象写法</div>
+    <div :class="classArray">动态设置class需求-数组写法</div>
+
+    <div :style="styleObj">动态设置style需求-对象写法</div>
+    <div :style="styleArray">动态设置style需求-数组写法</div>
+    <span v-bind:title="message">123123</span>
   </div>
   <script type="text/javascript">
+  /*
+    2. class 与 style
+    (1) 绑定HTML Class： 对象语法、数组语法
+        对象语法的时候如果想动态添加则采用 Vue.set(vm.classObj, "d", true)
+    (2) 绑定style： 对象语法、数组语法
+        对象语法的时候如果想动态添加则采用 Vue.set(vm.styleObj, "fontSize", "30px")
+    3. 条件渲染
+  */
     var vm = new Vue({
       el: '#box',
       data: {
         isActive: true,
-        myhtml: "<b>11111</b>"
+        dataList: ['11111','222','3333'],
+        myhtml: "<b>11111</b>",
+        message: 'dasdsada',
+        classObj: {
+          a: true,
+          b: true,
+          c: false
+        },
+        classArray: ["a", "b", "c"],
+        styleObj: {
+          backgroundColor: "red"
+        },
+        styleArray: [
+          {backgroundColor: "red"}
+        ]
       },
       methods: {
         handlerClick(){
