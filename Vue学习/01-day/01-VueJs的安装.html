@@ -28,6 +28,18 @@
             View和Model的沟通桥梁
             一方面实现了Data Binding，也就是数据绑定，将model中的改变实时的反映到View中
             另一方面实现DOM Listener， 也就是DOM监听，当DOM发生一些事件（点击，滚动，touch等）时，可以监听到，并在需要的情况下改变对应的Data
+        Vue 实例传入的Options
+        1.el ： 
+            类型： string | HTMLElement
+            作用： 决定之后Vue实例会管理那个Dom
+        2.data ：
+            类型： Object | Function（组件中的Data必须是一个函数）
+            作用： Vue实例对应的数据对象
+        3.methods： 
+            类型： {[key:String] : function}
+            作用： 定义Vue属性的一些方法，可以在其他地方调用，也可以在指令中使用
+
+        方法与函数的区别： 方法是绑定在一个实例中即在一个勒种书写的叫做方法
      -->
      <div id="app">{{messsage}}</div>
      <script>

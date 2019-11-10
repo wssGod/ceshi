@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        Mustache语法 也就是双大括号{{}}
+        插值的操作： 
+
+     -->
+    <div id ="app">
+        <!-- Mustache语法不仅仅可以直接写变量，还可以写简单的表达式  -->
+        <div>{{ firstName +  secondName}}</div>
+    </div>
+
+    <script>
+     //创建Vue实例,得到 ViewModel
+     const vm = new Vue({
+        el: '#app',
+        data: {
+          firstName: 'lobo',
+          secondName: 'ceshi'
+        },
+        methods: {}
+     });
+    </script>
+</body>
+
+</html>

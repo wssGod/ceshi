@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../lib/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        Vue 的生命周期：诞生到消亡的旅程
+            new Vue() {实例化一个Vue的对象}
+            initEvents & Lifecycle {初始化事件和生命周期}
+            brforeCreate{创建实例之前执行的钩子函数}
+            init injections & reactivity {初始化注入}
+            created{实例创建完成后执行的钩子函数}
+            Has 'el' option? {有没有el选项}
+            when vm.$mount(el) is called {没有则使用vm.$mount(el)去挂载模板}
+            Has 'template' option? {有没有template选项}
+            Compile template info render function(yes)/Compile el's outerHTML as  template(NO) {编译模板，把data对象里面的数据和Vue模板声明的模板变异成浏览器可读的HTML}
+            beforeMount{将编译完成的HTML挂载到对应虚拟dom时触发的钩子，此时页面并没有内容}
+            Create  vm.$el and replace "el" with it {将编译好的HTML替换掉el属性所指向的dom}
+            mounted {将编译好的HTML挂载到页面完成后执行的事件钩子，此钩子函数中一般会做一些ajax的请求获取数据进行数据初始化 注：mouted在整个实例中只执行一次}
+            Mouted {实时监控数据的变化并随之更新DOM}
+            beforeUpdate {更新之前的钩子}
+        代码规范：缩进两个空格
+     -->
+</body>
+</html>
