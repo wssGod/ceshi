@@ -11,10 +11,29 @@
 <body>
   <!-- 
     Vue 的计算属性： 当需要对数据进行某种变幻进行显示的数据可以用计算属性
+
+    计算属性的getter和setter
+      只是使用getter来读取，在某些情况下看看提供setter方法（不常用）
+
+    （掌握）计算属性和mehods的对比
    -->
   <div id ="app"> 
     <h2>{{fullName}}</h2>
     <h2>总价格： {{ totalPrice }}</h2>
+    <h2>计算属性： {{fullNameTemp}}</h2>
+
+    <!-- 1.直接进行拼接 语法过于繁琐 -->
+    <h2>{{firstName}}  {{lastName}}</h2>
+    <!-- 2.通过定义methods -->
+    <h2>{{getFullName()}}</h2>
+    <h2>{{getFullName()}}</h2>
+    <h2>{{getFullName()}}</h2>
+    <h2>{{getFullName()}}</h2>
+    <!-- 3.通过计算属性 有缓存，只调用一次-->
+    <h2>{{fullName}}</h2>
+    <h2>{{fullName}}</h2>
+    <h2>{{fullName}}</h2>
+    <h2>{{fullName}}</h2>
   </div>
 
   <script>
@@ -23,8 +42,22 @@
       el: '#app',
       // 计算属性
       computed: {
+        // 计算属性
         fullName () {
+          console.log(2)
           return this.firstName + ' ' + this.lastName
+        },
+        // 计算属性的完整写法 fullNameTemp 对一个的是一个对象里面有getter 和 setter方法
+        // 计算属性一般没有setter方法，只读属性
+        fullNameTemp: { 
+          get() {
+            return this.firstName + ' ' + this.lastName
+          },
+          set(newValue) {
+            const name = newValue.split(' ')
+            this.firstName = name[0]
+            this.lastName = name[1]
+          }
         },
         totalPrice() {
           let result = 0
@@ -43,7 +76,12 @@
           {id: 112, name: '深入计算机原理', price: 131}
         ]
       },
-      methods: {}
+      methods: {
+        getFullName() {
+          console.log(1)
+          return this.firstName + ' ' + this.lastName
+        }
+      }
    });
   </script>
 </body>

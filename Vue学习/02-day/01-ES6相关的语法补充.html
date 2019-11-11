@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+</head>
+
+<body>
+  <!-- (掌握) 
+    1.let/var : var 是JavaScript语言设计上的一种错误，这种错误多半不能修复和移除，以为需要向后兼容，于是新增了let，可以看成更完美的var
+  -->
+  <div id ="app">
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <button>按钮5</button>
+  </div>
+
+  <script>
+   //创建Vue实例,得到 ViewModel
+   const app = new Vue({
+    el: '#app',
+    data: {},
+    methods: {}
+   });
+   // 1.变量作用域： 变量在什么范围内可以进行使用
+  //  {
+  //    var name = 'why';
+  //    console.log(name)
+  //  }   
+  //  console.log(name) // 这块也是能打印的
+  // 2.没有块作用域引起的问题： if 的块级
+  // var func;
+  // if (true){
+  //   var name = 'why';
+  //   func = function() {
+  //     console.log(name)
+  //   }
+  //   func() // 调用进行打印
+  // }
+  // name = "哈哈哈"
+  // func() // 这块也是能进行打印的， 这个打印很容易被改变
+
+    // 3.没有块作用域引起的问题： for 的块级
+    var btn = document.getElementsByTagName('button');
+    for(var i = 0; i < btn.length; i++) {
+      // btn[i].addEventListener('click', function(){
+      //   console.log('第' + i + '个按钮被点击') // 将会打印 第5个按钮被点击， 因为i遍历完之后 i 变成了5
+      // })
+      // 闭包可以解决上面的问题 : 因为函数是有作用域的
+      (function(i){
+        btn[i].addEventListener('click', function(){
+          console.log('第' + i + '个按钮被点击') // 将会打印 第5个按钮被点击， 因为i遍历完之后 i 变成了5
+        })
+      })(i)
+    }
+  </script>
+</body>
+
+</html>
