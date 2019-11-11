@@ -6,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="../lib/vue.js"></script>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
 </head>
 
 <body>
@@ -14,22 +19,112 @@
         插值的操作： 
 
      -->
-    <div id ="app">
+     <!-- 
+        v-cloak(斗篷) 指令的使用: 在某种情况下，浏览器可能会直接显示出未编译的Mustache标签,为了用户的体验当Vue实例创建完成后在显示东西
+      -->
+    <div id ="app" v-cloak>
         <!-- Mustache语法不仅仅可以直接写变量，还可以写简单的表达式  -->
         <div>{{ firstName +  secondName}}</div>
+
+        <h1>指定的使用</h1>
+        <!-- 
+          v-once 指令的使用: 该指令后面不需要跟任何形式的表达式，不会随数据的改变而改变
+         -->
+        <span v-once>{{firstName}}</span>
+        <!-- 
+          v-html 指令的使用: 将String的html解析出来
+         -->
+        <h2 v-html="url"></h2>
+        <!-- 
+          v-text 指令的使用: 一般不使用, 后面的文字会被覆盖
+         -->
+         <h2 v-text="message">, 再见</h2>
+         <!-- 
+          v-pre 指令的使用: 不解析原封不动的显示
+         -->
+        <h2 v-pre>{{message}}</h2>
+        <!-- 
+          v-bind 指令的使用: 绑定动态属性， 语法糖(简写)： v-bind: => :
+          v-bind 可以绑定动态的class样式, 样式绑定可以是一个对象，也可以是一个数组 标签中还可以写class
+         -->
+         <img v-bind:src="imageUrl" alt="" srcset="" width="50px" height="50px">
+         <a v-bind:href="httpUrl">v-bind的使用</a>
+         <img :src="imageUrl" alt="" srcset="" width="50px" height="50px">
+         <a :href="httpUrl">v-bind的使用</a>
+         <div :class="active">你好</div>
+         <!-- <div :class="{类名1: true, 类名2； true}">你好</div> -->
+         <div :class="{active1: isActive, line: isLine}">你好</div>
+         <!-- 单引号删掉就是变量，在data中取值 -->
+         <div :class="['active1','line']">v-bind数组语法(用的少)</div>
+         <ul>
+           <li v-for="(item, index) in moveList" @click="changeColor(index)" :class="currentIndex == index ? 'active1' : 'line'">
+              {{item}}
+           </li>
+         </ul>
+         <ul>
+            <li v-for="(item, index) in moveList" @click="changeColor(index)" :class="getMoveClass(index)">
+               {{item}}
+            </li>
+          </ul>
+         <!-- 
+           v-bind 绑定style
+            绑定方式一： 对象语法
+              :style="{color:currentColor, fontSize: fontSize + 'px'}" style后面跟一个对象类型：对象的Key是CSS的名称，对象的值是具体赋的值，可以使用驼峰标识，如果直接写50px会被当成变量
+            绑定方式二： 数组语法
+              <div :style="[baseStyles, overridingStyles]"></div> style后面跟的是一个数组类型， 多个值以,分割即可
+          -->
+          <!-- 20px必须加上单引号要不然会被当成变量 -->
+          <h2 :style="{fontSize: '20px'}">{{message}}</h2>
+          <h2 :style="getFontStyle()">{{message}}</h2>
+          <h2 :style="[baseStyles]">{{message}}</h2>
     </div>
 
     <script>
      //创建Vue实例,得到 ViewModel
-     const vm = new Vue({
+     // Vue解析之前 div中有一个属性叫做v-cloak
+     // Vue解析之后 div中没有一个属性v-cloak
+      const vm = new Vue({
         el: '#app',
         data: {
           firstName: 'lobo',
-          secondName: 'ceshi'
+          secondName: 'ceshi',
+          url: '<a href="http://www.baidu.com">百度一下</a>',
+          message: 'v-text 指令的使用',
+          imageUrl: 'http://b-ssl.duitang.com/uploads/blog/201407/09/20140709115034_TPLQR.jpeg',
+          httpUrl: "http://www.baidu.com",
+          active: 'active1',
+          isActive: true,
+          isLine: true,
+          moveList: ['海王', '海尔兄弟', '火影忍者', '进击的巨人'],
+          currentIndex: 0,
+          fontSize: 20,
+          baseStyles: {fontSize: '22px'}
         },
-        methods: {}
-     });
+        methods: {
+          changeColor(index) {
+            this.currentIndex = index
+          },
+          getMoveClass(index) {
+            if (this.currentIndex == index) {
+              return 'active1'
+            } else {
+              return 'line'
+            }
+          },
+          getFontStyle() {
+            return {fontSize: this.fontSize + 'px', color: 'red'}
+          }
+        }
+    })
     </script>
+    <style>
+      .active1{
+        color: red;
+      }
+      .line{
+        color: royalblue;
+      }
+    </style>
 </body>
 
 </html>

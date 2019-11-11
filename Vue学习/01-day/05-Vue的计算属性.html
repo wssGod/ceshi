@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    Vue 的计算属性： 当需要对数据进行某种变幻进行显示的数据可以用计算属性
+   -->
+  <div id ="app"> 
+    <h2>{{fullName}}</h2>
+    <h2>总价格： {{ totalPrice }}</h2>
+  </div>
+
+  <script>
+   //创建Vue实例,得到 ViewModel
+   const app = new Vue({
+      el: '#app',
+      // 计算属性
+      computed: {
+        fullName () {
+          return this.firstName + ' ' + this.lastName
+        },
+        totalPrice() {
+          let result = 0
+          for (let i = 0; i < this.books.length; i++) {
+            result = result + this.books[i].price
+          }
+          return result
+        }
+      },
+      data: {
+        firstName: 'firstName',
+        lastName: 'lastName',
+        books: [
+          {id: 110, name: 'Unix编程艺术', price: 119},
+          {id: 111, name: '代码大全', price: 121},
+          {id: 112, name: '深入计算机原理', price: 131}
+        ]
+      },
+      methods: {}
+   });
+  </script>
+</body>
+
+</html>
