@@ -25,7 +25,10 @@
   <h2 v-else-if="score > 60">良好</h2>
   <h2 v-else>差</h2>
   </div>
-
+<!-- 
+  v-show 与 v-if 相同，只是把元素的display设置成none HTML页面可以看见代码
+  显示和隐藏频率高的时候采用v-show，否则v-if
+ -->
   <script>
    //创建Vue实例,得到 ViewModel
    const app = new Vue({

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+</head>
+
+<body>
+  <div id ="app"> 
+    <!-- 
+      当输入用户名后在进行切换输入的东西会继续存在 , 解决问题可以在input上使用 :value="printText"
+      原因是： Vue 进行DOM渲染的时候，出于性能的考虑，会尽可能的复用已经存的元素，先生成一个虚拟的DOM在渲染在浏览器上
+    -->
+    <span v-if="type">
+      <!-- label 的for绑定input的id后点击文字获取焦点 -->
+      <label for="username">用户名：</label>
+      <input type="text" id="username" placeholder="请输入用户名">
+    </span>
+    <span v-else>
+      <label for="email">邮箱：</label>
+      <input type="text" id="email" placeholder="请输入邮箱">
+    </span>
+    <button @click="handelChange">切换类型</button>
+  </div>
+
+  <script>
+   //创建Vue实例,得到 ViewModel
+   const app = new Vue({
+    el: '#app',
+    data: {
+      type: true,
+      printText: ''
+    },
+    methods: {
+      handelChange(){
+        this.printText = ''
+        this.type = !this.type
+      }
+    }
+   });
+  </script>
+</body>
+
+</html>
