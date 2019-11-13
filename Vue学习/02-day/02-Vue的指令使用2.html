@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+</head>
+
+<body>
+  <div id ="app"> 
+<!-- 
+  v-if 条件判断  v-if 的使用（可以绑定一个变量，函数，表达式）
+-->
+  <h2 v-if="isShow">条件判断  v-if 的使用(true: 显示， false: 隐藏)</h2>
+<!-- 
+  v-else v-if的参数为false时显示true时进行隐藏
+ -->
+  <h2 v-else>isShow为false时显示</h2>
+<!-- 
+  v-else-if 的使用 分数的使用
+ -->
+  <h2 v-if="score > 90">优秀</h2>
+  <h2 v-else-if="score > 60">良好</h2>
+  <h2 v-else>差</h2>
+  </div>
+
+  <script>
+   //创建Vue实例,得到 ViewModel
+   const app = new Vue({
+    el: '#app',
+    data: {
+      isShow: true,
+      score: 98
+    },
+    methods: {}
+   });
+  </script>
+</body>
+
+</html>

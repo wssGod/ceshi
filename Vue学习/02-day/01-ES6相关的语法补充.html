@@ -10,7 +10,12 @@
 
 <body>
   <!-- (掌握) 
+    ES5之前因为if和for没有块级作用域的概念所以在很多的时候我们必须借助于function的作用域来解决应用外面变量的问题
+    ES6中加入了let，它是有if和for的块级作用域的
     1.let/var : var 是JavaScript语言设计上的一种错误，这种错误多半不能修复和移除，以为需要向后兼容，于是新增了let，可以看成更完美的var
+    2.const 变量修饰成常亮，在ES6当中优先使用const，当需要使用变量的时候再用let，尽量不要使用var，使用const时必须赋值
+            注意: 常量的含义是指对象不能修改，但是可以修改对象内部的属性
+    3.对象的增强写法（对象字面量ß）
   -->
   <div id ="app">
     <button>按钮1</button>
@@ -46,17 +51,58 @@
   // func() // 这块也是能进行打印的， 这个打印很容易被改变
 
     // 3.没有块作用域引起的问题： for 的块级
+    // var btn = document.getElementsByTagName('button');
+    // for(var i = 0; i < btn.length; i++) {
+    //   // btn[i].addEventListener('click', function(){
+    //   //   console.log('第' + i + '个按钮被点击') // 将会打印 第5个按钮被点击， 因为i遍历完之后 i 变成了5
+    //   // })
+    //   // 闭包可以解决上面的问题 : 因为函数是有作用域的
+    //   (function(i){
+    //     btn[i].addEventListener('click', function(){
+    //       console.log('第' + i + '个按钮被点击') // 将会打印 第5个按钮被点击， 因为i遍历完之后 i 变成了5
+    //     })
+    //   })(i)// 立即执行这个函数
+    // }
+    // ES6的语法
     var btn = document.getElementsByTagName('button');
-    for(var i = 0; i < btn.length; i++) {
-      // btn[i].addEventListener('click', function(){
-      //   console.log('第' + i + '个按钮被点击') // 将会打印 第5个按钮被点击， 因为i遍历完之后 i 变成了5
-      // })
-      // 闭包可以解决上面的问题 : 因为函数是有作用域的
-      (function(i){
-        btn[i].addEventListener('click', function(){
-          console.log('第' + i + '个按钮被点击') // 将会打印 第5个按钮被点击， 因为i遍历完之后 i 变成了5
-        })
-      })(i)
+    for(let i = 0; i < btn.length; i++) {
+      btn[i].addEventListener('click', function(){
+        console.log('第' + i + '个按钮被点击') // 将会打印 第5个按钮被点击， 因为i遍历完之后 i 变成了5
+      })
+    }
+
+    // 对象字面量的增强写法
+    // const obj = new Object()
+    // {} 就是obj 的字面量
+    // 属性的增强写法
+    // ES5正常的写法
+    const name = "why";
+    const age = 18;
+    // const obj1 = {
+    //   age: age,
+    //   name: name
+    // }
+    // console.log(obj1)
+    const obj1 = {
+      name,
+      age
+    }
+    console.log(obj1)
+
+    // 2.函数的增强写法
+    // ES5的写法
+    const obj = {
+      age: 48,
+      run: function(){
+        console.log('1111')
+      }
+    }
+    // ES6的写法
+    const obj3 = {
+      age: 48,
+      run(){
+        console.log('1111')
+      }
     }
   </script>
 </body>

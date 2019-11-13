@@ -43,10 +43,10 @@
           v-pre 指令的使用: 不解析原封不动的显示
          -->
         <h2 v-pre>{{message}}</h2>
-        <!-- 
-          v-bind 指令的使用: 绑定动态属性， 语法糖(简写)： v-bind: => :
-          v-bind 可以绑定动态的class样式, 样式绑定可以是一个对象，也可以是一个数组 标签中还可以写class
-         -->
+<!-- 
+  v-bind 指令的使用: 绑定动态属性， 语法糖(简写)： v-bind: => :
+  v-bind 可以绑定动态的class样式, 样式绑定可以是一个对象，也可以是一个数组 标签中还可以写class
+-->
          <img v-bind:src="imageUrl" alt="" srcset="" width="50px" height="50px">
          <a v-bind:href="httpUrl">v-bind的使用</a>
          <img :src="imageUrl" alt="" srcset="" width="50px" height="50px">
@@ -77,6 +77,38 @@
           <h2 :style="{fontSize: '20px'}">{{message}}</h2>
           <h2 :style="getFontStyle()">{{message}}</h2>
           <h2 :style="[baseStyles]">{{message}}</h2>
+<!-- 
+  v-on 绑定事件监听器, 语法糖 v-on: => @
+    情况一： 如果没有额外的参数方法后面的（）可以不添加
+-->
+          <h2>{{count}}</h2>
+          <!-- 没有参数 -->
+          <button v-on:click="increment">+</button>
+          <button @click="decrement()">-</button>
+          <!-- 在事件定义时，写方法时省略小括号，但是方法本身是需要一个参数的，这个时候Vue会将浏览器默认生成的event对象作为参数传入方法中-->
+          <button @click="btn2Click(123)">按钮2</button>
+          <button @click="btn2Click()">按钮2(结果undefined)</button> 
+          <button @click="btn2Click">按钮2(结果浏览器生成的event对象)</button> 
+          <!-- 方法定义时需要event参数，同时需要其他的参数 -->
+          <button @click="btn3Click(123, $event)">按钮3(方法定义时需要event参数，同时需要其他的参数)</button> 
+          <!-- v-on 的修饰符 -->
+          <!--1 .stop修饰符的使用 -->
+          <!-- 两个都会被点击,只有被点击div 的时候才会走divClick，点击按钮走按钮的点击事件，阻止事件的冒泡采用v-on的修饰符stop-->
+          <div @click="divClick">
+            aaa
+            <button @click.stop="buttonClick">按钮</button>
+          </div>
+          <!--2 .prevent修饰符的使用，阻止默认的事件, form 表单的按钮会默认手机数据进行提交，我们想自己手动提交采用.prevent  -->
+          <form action="baidu">
+            <input type="submit" value="提交" @click.prevent="buttonClick">
+          </form>
+          <!--3 .{keyCode | keyAlias} 只当事件是从特定键触发时才触发回调 (监听键帽的点击)
+            keyup: 监听按键弹起的事件
+          -->
+          <input type="text" @keyup.enter="keyUp">
+          <!-- .native 监听组件根元素的原生事件 -->
+          <!--4 .once 只触发一次回调 -->
+          <button @click.once="onceClick">只触发一次</button>
     </div>
 
     <script>
@@ -98,7 +130,8 @@
           moveList: ['海王', '海尔兄弟', '火影忍者', '进击的巨人'],
           currentIndex: 0,
           fontSize: 20,
-          baseStyles: {fontSize: '22px'}
+          baseStyles: {fontSize: '22px'},
+          count: 0
         },
         methods: {
           changeColor(index) {
@@ -113,6 +146,31 @@
           },
           getFontStyle() {
             return {fontSize: this.fontSize + 'px', color: 'red'}
+          },
+          // 增加count
+          increment() {
+            this.count ++
+          },
+          decrement() {
+            this.count --
+          },
+          btn2Click(param1) {
+            console.log(param1)
+          },
+          btn3Click(param1, event) {
+            console.log('++++',param1, event)
+          },
+          divClick() {
+            console.log('divClick被点击了')
+          },
+          buttonClick() {
+            console.log('buttonClick被点击了')
+          },
+          keyUp() {
+            console.log('keyUp')
+          },
+          onceClick() {
+            console.log('点击')
           }
         }
     })
