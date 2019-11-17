@@ -19,29 +19,29 @@
         插值的操作： 
 
      -->
-     <!-- 
-        v-cloak(斗篷) 指令的使用: 在某种情况下，浏览器可能会直接显示出未编译的Mustache标签,为了用户的体验当Vue实例创建完成后在显示东西
-      -->
+<!-- 
+  v-cloak(斗篷) 指令的使用: 在某种情况下，浏览器可能会直接显示出未编译的Mustache标签,为了用户的体验当Vue实例创建完成后在显示东西
+-->
     <div id ="app" v-cloak>
         <!-- Mustache语法不仅仅可以直接写变量，还可以写简单的表达式  -->
         <div>{{ firstName +  secondName}}</div>
 
         <h1>指定的使用</h1>
-        <!-- 
-          v-once 指令的使用: 该指令后面不需要跟任何形式的表达式，不会随数据的改变而改变
-         -->
+<!-- 
+  v-once 指令的使用: 该指令后面不需要跟任何形式的表达式，不会随数据的改变而改变
+-->
         <span v-once>{{firstName}}</span>
-        <!-- 
-          v-html 指令的使用: 将String的html解析出来
-         -->
+<!-- 
+  v-html 指令的使用: 将String的html解析出来
+-->
         <h2 v-html="url"></h2>
-        <!-- 
-          v-text 指令的使用: 一般不使用, 后面的文字会被覆盖
-         -->
+<!-- 
+  v-text 指令的使用: 一般不使用, 后面的文字会被覆盖
+-->
          <h2 v-text="message">, 再见</h2>
-         <!-- 
-          v-pre 指令的使用: 不解析原封不动的显示
-         -->
+<!-- 
+  v-pre 指令的使用: 不解析原封不动的显示
+-->
         <h2 v-pre>{{message}}</h2>
 <!-- 
   v-bind 指令的使用: 绑定动态属性， 语法糖(简写)： v-bind: => :
@@ -53,14 +53,19 @@
          <a :href="httpUrl">v-bind的使用</a>
          <div :class="active">你好</div>
          <!-- <div :class="{类名1: true, 类名2； true}">你好</div> -->
-         <div :class="{active1: isActive, line: isLine}">你好</div>
+         <div :class="{'active1': isActive, 'line': isLine}">你好</div>
          <!-- 单引号删掉就是变量，在data中取值 -->
          <div :class="['active1','line']">v-bind数组语法(用的少)</div>
          <ul>
-           <li v-for="(item, index) in moveList" @click="changeColor(index)" :class="currentIndex == index ? 'active1' : 'line'">
+           <li v-for="(item, index) in moveList" @click="changeColor(index)" :class="currentIndex == index ? 'active1' : ''">
               {{item}}
            </li>
          </ul>
+         <ul>
+            <li v-for="(item, index) in moveList" @click="changeColor(index)" :class="{'active1': currentIndex == index}">
+               {{item}}
+            </li>
+          </ul>
          <ul>
             <li v-for="(item, index) in moveList" @click="changeColor(index)" :class="getMoveClass(index)">
                {{item}}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    编程范式： 命令式编程/声明式编程/面向对象编程/函数式编程
+   -->
+  <div id ="app">
+    <div v-if="books.length != 0">
+      <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>书籍名称</th>
+              <th>出版日期</th>
+              <th>价格</th>
+              <th>购买数量</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item,index) in books" :key="item.id">
+              <td>{{item.id}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.data}}</td>
+              <!-- 保留两位有效数字(1) 字面上直接拼接 -->
+              <!-- <td>￥{{item.price.toFixed(2)}}</td> -->
+              <!-- (2) 采用方法直接拼接 -->
+              <!-- <td>{{getFinalPrice(item.price)}}</td> -->
+              <!-- (3) 采用过滤器 -->
+              <td>{{item.price | showPrice}}</td>
+              <td>
+                <button :disabled="item.count <= 1" @click="decrement(item)">-</button>
+                {{item.count}}
+                <button @click="increment(item)">+</button>
+              </td>
+              <td>
+                <button @click="removeHandle(index)">移除</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <h2>总价格: {{totalPrice | showPrice}}</h2>
+    </div>
+    <h2 v-else>购物车为空</h2>
+  </div>
+  <script>
+   //创建Vue实例,得到 ViewModel
+   const app = new Vue({
+    el: '#app',
+    data: {
+      books: [
+        {id: 1, name: '《算法导论》', data: '2019-01', price: 85.00, count: 1},
+        {id: 2, name: '《UNIX编程艺术》', data: '2019-02', price: 59.00, count: 1},
+        {id: 3, name: '《码农翻身》', data: '2019-03', price: 54.00, count: 1},
+        {id: 4, name: '《代码大全》', data: '2019-04', price: 70.50, count: 1},
+        {id: 5, name: '《JS权威指南》', data: '2019-05', price: 95.30, count: 1},
+      ]
+    },
+    computed: {
+      totalPrice() {
+        let totalPrice = 0
+        // 第一种方式
+        // for (let i =0; i < this.books.length; i++) {
+        //   totalPrice = totalPrice + this.books[i].price*this.books[i].count
+        // }
+        // 第二种方式
+        // for (let i in this.books) {
+        //   totalPrice = totalPrice + this.books[i].price*this.books[i].count
+        // }
+        // 第三种方式
+        // for (let item of this.books) {
+        //   totalPrice += item.price * item.count
+        // }
+        // 第四种方式 reduce
+        totalPrice = this.books.reduce(function(preValue, n){
+          return preValue += n.count * n.price
+        },0)
+        return totalPrice
+      }
+    },
+    filters: {
+      showPrice(price) {
+        return '￥' + price.toFixed(2)
+      }
+    },
+    methods: {
+      getFinalPrice(price) {
+        return '￥' + price.toFixed(2)
+      },
+      increment(item) {
+        item.count++
+      },
+      decrement(item) {
+        item.count--
+        // if (item.count > 1) {
+        //   item.count--
+        // }
+      },
+      removeHandle(index) {
+        this.books.splice(index, 1)
+      }
+    }
+   });
+  </script>
+  <!-- 样式 -->
+  <style>
+    table{
+      border: 1px solid #e9e9e9;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+    th, td {
+      padding: 8px 16px;
+      border: 1px solid #e9e9e9;
+    }
+    th{
+      background-color: #f7f7f7;
+      color: #5c6b77;
+      font-weight: 600;
+    }
+  </style>
+</body>
+
+</html>

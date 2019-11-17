@@ -24,20 +24,102 @@
   <h2 v-if="score > 90">优秀</h2>
   <h2 v-else-if="score > 60">良好</h2>
   <h2 v-else>差</h2>
-  </div>
 <!-- 
   v-show 与 v-if 相同，只是把元素的display设置成none HTML页面可以看见代码
   显示和隐藏频率高的时候采用v-show，否则v-if
+-->
+<!-- 
+  v-for 遍历数组:官方推荐使用v-for的时候加个属性 :key 为了更好的复用，最好不要使用index，最好是一一对应的
+-->
+    <!-- 1.在遍历过程中，没有使用索引值（下标值） -->
+    <ul>
+      <li v-for="item in names">{{ item }}</li>
+    </ul>
+    <!-- 2.在遍历过程中获取索引值 -->
+    <ul>
+      <li v-for="(item,index) in names">{{index + 1}}.{{ item }}</li>
+    </ul>
+    <!-- 3.遍历对象 -->
+    <ul>
+      <!--（1）只获取一个值, 取出来的是value值 -->
+      <li v-for="item in info">{{item}}</li>
+      <!-- 获取key 和 value （value,key） -->
+      <li v-for="(value, key) in info">{{value}}-{{key}}</li>
+      <!-- 获取key 和 value （value,key）还有index -->
+      <li v-for="(value, key, index) in info">{{value}}-{{key}}-{{index}}</li>
+    </ul>
+<!-- 
+  哪些数组的方法是响应式的 push， pop(删除数组中的最后一个元素), shift(删除数组中的第一个元素), unshift（在数组最前面加一个元素）
+  splice作用： 删除元素/插入元素/替换元素：删除元素：第二个参数传入你要删除几个元素，如果没有传就删除后面所有元素，替换元素：第二个参数，表示要替换几个元素，后面用于替换前面的元素
+  sort()排序 reverse() 反转，通过索引值进行修改时不是响应式的可以采用 Vue.set(数组，index， 改变的值)
+  ...nums(可变参数)
  -->
+    <ul>
+      <li v-for="(item,index) in names">{{index + 1}}.{{ item }}</li>
+    </ul>
+    <button @click="btnClick">按钮</button>
+<!-- 
+  v-model 表单绑定双向绑定
+    本质上包含两个操作 v-bind绑定一个value值 v-on绑定一个input事件 $event.target.value获取输入框的值
+ -->
+  <input type="text" v-model="inputText">{{inputText}}
+    <!-- v-model结合Radio类型 -->
+    <label for="male">
+      <input type="radio" id="male" value="男" v-model="sex">男
+    </label>
+    <label for="female">
+      <input type="radio" id="female" value="女" v-model="sex">女
+    </label>
+    <h2>您选择的性别：{{sex}}</h2>
+    <!-- v-model 结合checkBox单选框的使用 -->
+    <label for="agree">
+      <input type="checkbox" id="agree" v-model="isAgree">同意协议
+    </label>
+    <h2>您选择：{{isAgree}}</h2>
+    <!-- v-model 结合checkBox多选框的使用 -->
+    <input type="checkbox" v-model="hobbies" value="1">篮球
+    <input type="checkbox" v-model="hobbies" value="2">足球
+    <input type="checkbox" v-model="hobbies" value="3">排球
+    <h2>爱好：{{hobbies}}</h2>
+    <!-- v-model 结合select的使用 选择一个的使用-->
+    <select name="abc" id="" v-model="fruits">
+      <option value="苹果" >苹果</option>
+      <option value="香蕉" >香蕉</option>
+      <option value="橙子">橙子</option>
+    </select>
+    <select name="abc1" v-model="fruits1" multiple>
+      <option value="苹果" >苹果</option>
+      <option value="香蕉" >香蕉</option>
+      <option value="橙子">橙子</option>
+    </select>
+    <h2>水果：{{fruits1}}</h2>
+  </div>
   <script>
    //创建Vue实例,得到 ViewModel
    const app = new Vue({
     el: '#app',
     data: {
+      inputText: '你好啊',
       isShow: true,
-      score: 98
+      isAgree: false,
+      score: 98,
+      hobbies: [],
+      sex: '',
+      fruits: '香蕉',
+      fruits1: [],
+      names: ['wang', 'li', 'zhao'],
+      info: {
+        age: 18,
+        name: 'wang',
+        height: 175
+      }
     },
-    methods: {}
+    methods: {
+      btnClick() {
+        // 1.push 方法
+        this.names.push('aaa')
+      }
+    }
    });
   </script>
 </body>
