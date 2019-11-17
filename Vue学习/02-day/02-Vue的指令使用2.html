@@ -93,6 +93,16 @@
       <option value="橙子">橙子</option>
     </select>
     <h2>水果：{{fruits1}}</h2>
+    <!-- 
+      v-model 的修饰符 
+        1.lazy 数据不会实时的进行绑定，当输入框数去焦点或者点击回车之后才会进行绑定
+        2.number v-model默认绑定的是String类型，该修饰符将绑定改为number类型
+        3.trim 去除空格不常用
+    -->
+    <input type="text" v-model.lazy="inputText">
+    <h2>{{ inputText }}</h2>
+    <input type="number" v-model.number="info.age">
+    <h2>{{ typeof info.age }}</h2>
   </div>
   <script>
    //创建Vue实例,得到 ViewModel

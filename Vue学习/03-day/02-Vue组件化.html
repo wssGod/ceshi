@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    注册组件的基本步骤
+      1.创建组件构造器 调用Vue.extend()方法创建
+      2.注册组件 Vue.component()
+      3.使用组件： 在Vue实例的作用范围内使用组件
+   -->
+  <div id ="app">
+    <my-cpn></my-cpn>
+    <cpn2></cpn2>
+    <my-cpn1></my-cpn1>
+    <cpn3></cpn3>
+    <!-- 组件的分离写法 script标签 -->
+    <cpn4></cpn4>
+    <!-- 组件的分离写法 template标签 -->
+    <cpn5></cpn5>
+  </div>
+  <!-- 1.组件的分离写法1 -->
+  <script type="text/x-template" id="cpn4">
+    <div>
+      <h2>组件的分离写法</h2>
+      <p>组件的分离写法的内容</p>
+    </div>
+  </script>
+  <!-- 1.组件的分离写法1 -->
+  <template id="cpn5">
+    <div>
+      <h2>{{title}}</h2>
+      <p>组件的分离写法的内容2</p>
+    </div>
+  </template>
+  <script>
+    //  1.创建组件构造器
+    const cpnC = Vue.extend({
+      template: `
+        <div>
+          <h2>我是标题</h2>
+          <h2>我是内容</h2>
+        </div>
+      `
+    })
+    // 2. 注册组件(全局组件：意味着可以在多个Vue实例中进行使用)
+    Vue.component('my-cpn', cpnC)
+    // 全局组件的语法糖
+    Vue.component('my-cpn1', {
+      template: `
+        <div>
+          <h2>全局组件的语法糖</h2>
+          <h2>全局组件的语法糖</h2>
+        </div>
+      `
+    })
+    
+    // 父组件和子组件
+    // 1.创建第一个组件构造器（子组件）
+    const cpnC1 = Vue.extend({
+      template: `
+          <div>
+            <h2>我是标题1</h2>
+            <p>我是内容1</p>
+          </div>
+      `
+    })
+    // 创建第2个组件构造器（父组件）
+    const cpnC2 = Vue.extend({
+      template: `
+          <div>
+            <h2>我是标题2</h2>
+            <p>我是内容2</p>
+            <cpn1></cpn1>
+          </div>
+      `,
+      components: {
+        cpn1: cpnC1
+      }
+    })
+
+    // 模板组件的分离写法
+    Vue.component('cpn4',{
+      template: '#cpn4'
+    })
+    Vue.component('cpn5',{
+      template: '#cpn5',
+      data() {
+        return {
+          title: 'acbddff'
+        }
+      }
+    })
+   //创建Vue实例,得到 ViewModel
+   const vm = new Vue({
+    el: '#app',
+    data: {},
+    components: {
+      // cpn使用组件的标签名(局部组件),标签名称不要跟组件名称重复
+      cpn: cpnC,
+      cpn2: cpnC2,
+      // 局部组件的语法糖
+      cpn3: {
+        template: `
+            <div>
+              <h2>局部组件的语法糖</h2>
+              <p>我是内容1局部组件的语法糖</p>
+            </div>
+        `
+      }
+    },
+    methods: {}
+   });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id ="app">
+    <!-- {{name}}   -->
+    <cpn></cpn>
+    <!-- 组件的分离写法 template标签 -->
+    <cpn5></cpn5>
+    <cpn6></cpn6>
+  </div>
+  <!-- 1.组件的分离写法1 -->
+  <template id="cpn5">
+    <div>
+      <h2>{{title}}</h2>
+      <p>组件的分离写法的内容2</p>
+    </div>
+  </template>
+  <template id="cpn">
+    <div>
+      <h2>{{title}}</h2>
+      <p>组件访问Vue实例</p>
+    </div>
+  </template>
+  <script src="../lib/vue.js"></script>
+  <script>
+   //创建Vue实例,得到 ViewModel
+   const vm = new Vue({
+    el: '#app',
+    data: {
+      // name: 'app1111'
+    },
+    components: {
+      cpn5: {
+        template: '#cpn5',
+        data(){
+          return {
+            title: '111111'
+          }
+        }
+      }
+    },
+    methods: {}
+   });
+   Vue.component('cpn6',{
+      template: '#cpn5',
+      data() {
+        return {
+          title: 'acbddff'
+        }
+      },
+    })
+   // 注册组件
+   Vue.component("cpn", {
+     template: '#cpn',
+    //  data() {
+    //    return {
+    //      title: 'abvc'
+    //    }
+    //  }
+   })
+  </script>
+</body>
+
+</html>
