@@ -12,12 +12,22 @@
   <div id ="app">
     <!-- 赋值的时候必须使用v-bind -->
     <cpn :cmovies="movies"></cpn>  
+    <!-- v-bind是不识别驼峰标识的需要 c-info这样进行调用  :childMyMessage="childMyMessage" 这样写是错误的正确的写法如下-->
+    <cpn2 :cinfo="info" :child-my-message="childMyMessage"></cpn2>
   </div>
   <template id="cpn">
     <div>
       <h2>{{cmovies}}</h2>
     </div>
   </template>
+
+  <template id="cpn2">
+    <div>
+      <h2>{{cinfo}}</h2>
+      <h2>{{childMyMessage}}</h2>
+    </div>
+  </template>
+
   <script>
     // 父传子 props
   const cpn = {
@@ -39,16 +49,38 @@
       }
     }
   }
+  const cpn2 = {
+    template: '#cpn2',
+    props: {
+      cinfo: {
+        type: Object,
+        default(){
+          return {}
+        }
+      },
+      childMyMessage: {
+        type: String,
+        default: ''
+      }
+    }
+  }
    //创建Vue实例,得到 ViewModel
    const app = new Vue({
     el: '#app',
     data: {
-      movies: ['海王', '海贼王']
+      movies: ['海王', '海贼王'],
+      info: {
+        name: 'why',
+        age: 18,
+        height: 1.88
+      },
+      childMyMessage: 'props的驼峰标识'
     },
     methods: {},
     components: {
       // 对象的增强写法
-      cpn
+      cpn,
+      cpn2
     }
    });
   </script>
