@@ -13,7 +13,7 @@
     <cpn></cpn>
     <!-- 组件的分离写法 template标签 -->
     <cpn5></cpn5>
-    <cpn6></cpn6>
+    <my-component></my-component>
   </div>
   <!-- 1.组件的分离写法1 -->
   <template id="cpn5">
@@ -30,6 +30,25 @@
   </template>
   <script src="../lib/vue.js"></script>
   <script>
+    // Vue.component必须写在Vue实例创建之前
+    Vue.component('my-component',{
+      template: '#cpn5',
+      // 必须是一个函数，并且要返回一个对象
+      data() {
+        return {
+          title: 'acbddff'
+        }
+      }
+    })
+    // 注册组件
+   Vue.component("cpn", {
+     template: '#cpn',
+     data() {
+       return {
+         title: 'abvc'
+       }
+     }
+   })
    //创建Vue实例,得到 ViewModel
    const vm = new Vue({
     el: '#app',
@@ -48,23 +67,6 @@
     },
     methods: {}
    });
-   Vue.component('cpn6',{
-      template: '#cpn5',
-      data() {
-        return {
-          title: 'acbddff'
-        }
-      },
-    })
-   // 注册组件
-   Vue.component("cpn", {
-     template: '#cpn',
-    //  data() {
-    //    return {
-    //      title: 'abvc'
-    //    }
-    //  }
-   })
   </script>
 </body>
 

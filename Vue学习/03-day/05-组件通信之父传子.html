@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+</head>
+
+<body>
+  <div id ="app">
+    <!-- 赋值的时候必须使用v-bind -->
+    <cpn :cmovies="movies"></cpn>  
+  </div>
+  <template id="cpn">
+    <div>
+      <h2>{{cmovies}}</h2>
+    </div>
+  </template>
+  <script>
+    // 父传子 props
+  const cpn = {
+    template: '#cpn',
+    // 数组的写法
+    // props: ['cmovies']
+    // 对象写法  String Number Array Object
+    // props: {
+    //   cmovies: Array
+    // }
+    // 可以设置默认值
+    props: {
+      cmovies: {
+        type: Array,
+        default(){
+          return []
+        }, //没有传入的时候会显示这个里面设置的默认值
+        required: true // 必须传递值，不传会报错误
+      }
+    }
+  }
+   //创建Vue实例,得到 ViewModel
+   const app = new Vue({
+    el: '#app',
+    data: {
+      movies: ['海王', '海贼王']
+    },
+    methods: {},
+    components: {
+      // 对象的增强写法
+      cpn
+    }
+   });
+  </script>
+</body>
+
+</html>
