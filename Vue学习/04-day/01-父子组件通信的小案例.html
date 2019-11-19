@@ -10,12 +10,18 @@
 
 <body>
   <div id ="app">
-    <cpn :number1="num1" :number2="num2"></cpn>  
+    <cpn :number1="num1" :number2="num2" @num1change="receiveNum1" @num2change="receiveNum2"></cpn>  
   </div>
   <template id="cpn">
     <div>
-      <h2>{{number1}}</h2>
-      <h2>{{number2}}</h2>
+      <h2>props:{{number1}}</h2>
+      <h2>data:{{dnumber1}}</h2>
+      <!-- <input type="text" v-model="dnumber1"> -->
+      <input type="text" :value="dnumber1" @input="num1Input">
+      <h2>props:{{number2}}</h2>
+      <h2>data:{{dnumber2}}</h2>
+      <!-- <input type="text" v-model="dnumber2"> -->
+      <input type="text" :value="dnumber2" @input="num2Input">
     </div>
   </template>
   <script>
@@ -26,10 +32,42 @@
         num1: 1,
         num2: 0
       },
-      methods: {},
+      methods: {
+        // 默认传过来的是String类型
+        receiveNum1(value) {
+          this.num1 = parseInt(value)
+        },
+        receiveNum2(value) {
+          this.num2 = parseInt(value)
+        }
+      },
       components: {
         cpn: {
           template: '#cpn',
+          data() {
+            return {
+              dnumber1: this.number1,
+              dnumber2: this.number2
+            }
+          },
+          methods: {
+            num1Input(event) {
+              this.dnumber1 = event.target.value
+              // 将数据传递给父组件
+              this.$emit('num1change', this.dnumber1)
+              // 将 dnumber2 设置成dnumber1 的100倍
+              this.dnumber2 = this.dnumber1 * 100
+              // dnumber2 改变传递给父组件
+              this.$emit('num2change', this.dnumber2)
+            },
+            num2Input(event) {
+              this.dnumber2 = event.target.value
+              // 将数据传递给父组件
+              this.$emit('num2change', this.dnumber2)
+              this.dnumber1 = this.dnumber2 / 100
+              this.$emit('num1change', this.dnumber1)
+            },
+          },
           props: {
             number1: {
               type: Number,
