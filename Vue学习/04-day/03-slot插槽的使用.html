@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    组件的插槽： 
+        封装的组件更具有扩展性，使用者决定组件的内容到底展现什么.
+   -->
+  <div id ="app">
+    <!-- <cpn>
+      <button>按钮</button>
+    </cpn>  
+    <cpn>
+      <span>hahah</span>
+    </cpn>   -->
+    <cpn></cpn>
+    <cpn>
+      <h2>hahahah</h2>
+      <div>woshi</div>
+    </cpn>
+  </div>
+  <!-- 插槽的基本使用，插槽的默认值，多个值同时放入组件都进行替换 -->
+  <template id="cpn">
+    <div>
+      <h2>我是组件</h2>
+      <p>我是组件，哈哈哈</p>
+      <!-- 定义一个插槽 -->
+      <!-- <slot></slot> -->
+      <!-- 给插槽一个默认值 -->
+      <slot><button>按钮</button></slot>
+    </div>
+  </template>
+
+<!-- 
+    具名插槽的使用：替换指定的插槽元素  
+-->
+  <h2>---------------------------------------------</h2>
+  <div id="app1">
+      <cpn1>
+        <span slot="center">标题</span>
+      </cpn1>
+  </div>
+  <template id="cpn1">
+      <div>
+        <slot name="left"><span>左边</span></slot>
+        <slot name="center"><span>中间</span></slot>
+        <slot name="right"><span>右边</span></slot>
+      </div>
+    </template>
+  <h2>---------------------------------------------</h2>
+<!-- 编译作用域：在那个实例当中就会使用哪个的data -->
+  <div id="app2">
+    <!-- 会使用实例中的isShow -->
+    <cpn2 v-show="isShow"></cpn2>
+  </div>
+  <template id="cpn2">
+    <div>
+      我是字内容
+    </div>
+  </template>
+<!-- 
+  作用域插槽：
+      父组件替换插槽的标签，但是内容由子组件来进行提供
+-->
+  <h6>------------------------------</h6>
+  <div id="app3">
+    <cpn3></cpn3>
+    <!-- 目的是取得子组件中的pLanguage -->
+    <cpn3>
+      <!-- 必须是template, Vue 2.5几以下必须使用template，以上版本口以使用div -->
+      <template slot-scope="slot">
+        <span v-for="item in slot.data">{{item}}-</span>
+      </template>
+    </cpn3>
+  </div>
+  <template id="cpn3">
+    <div>
+      <!-- 插槽定义一个data属性 -->
+      <slot :data="pLanguage">
+          <ul>
+            <li v-for="item in pLanguage">{{ item }}</li>
+          </ul>
+      </slot>
+    </div>
+  </template>
+  <script>
+    //创建Vue实例,得到 ViewModel
+    const vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        components: {
+          cpn: {
+            template: '#cpn'
+          }
+        }
+    });
+
+    // 具名插槽的使用
+    const app = new Vue({
+      el: '#app1',
+      data: {
+
+      },
+      components: {
+        cpn1: {
+          template: '#cpn1'
+        }
+      }
+    })
+    // 编译作用域
+    const app2 = new Vue({
+      el: '#app2',
+      data: {
+        isShow: true
+      },
+      components: {
+        cpn2: {
+          template: '#cpn2',
+          data(){
+            return {
+              isShow: false
+            }
+          }
+        }
+      }
+    })
+    // 作用域插槽
+    const app3 = new Vue({
+      el: '#app3',
+      data:{},
+      components:{
+        cpn3:{
+          template: '#cpn3',
+          data(){
+            return {
+              pLanguage: ['java','js','HTML','php']
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
