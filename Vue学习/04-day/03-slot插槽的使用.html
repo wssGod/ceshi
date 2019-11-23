@@ -90,6 +90,17 @@
       </slot>
     </div>
   </template>
+<!-- 
+    CommonJS 的导出：
+      module.exports = {
+        flag: true,
+        test(a, b) {
+          return a+b
+        }
+      }
+    CommonJs 的导入
+      let {test} = require('moduleA')
+ -->
   <script>
     //创建Vue实例,得到 ViewModel
     const vm = new Vue({
