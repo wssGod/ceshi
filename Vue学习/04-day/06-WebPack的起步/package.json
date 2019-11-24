@@ -4,11 +4,16 @@
   "description": "",
   "main": "webpack.config.js",
   "dependencies": {
+    "vue": "^2.6.10",
     "webpack": "^3.5.5"
   },
   "devDependencies": {
     "css-loader": "^3.2.0",
-    "style-loader": "^1.0.0"
+    "file-loader": "^4.3.0",
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0",
+    "style-loader": "^1.0.0",
+    "url-loader": "^2.3.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
