@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 module.exports = {
   // 入口
   entry: './src/main.js', 
@@ -10,6 +11,13 @@ module.exports = {
     filename: 'handel.js',
     // 涉及到路径的前面都将加上dist/
     publicPath: 'dist/'
+  },
+  // 配置如何使用VUE
+  resolve: {
+    // 别名
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    }
   },
   module: {
     rules: [
@@ -59,6 +67,15 @@ module.exports = {
       //     }
       //   ]
       // },
+      {
+        test: /\.vue$/,
+        use: ['vue-loader']
+      }
     ]
-  }
+  },
+  // webpack中的一些插件的使用
+  plugins:[
+    // 对打包的文件进行添加版权的插件,先导入webpack
+    new webpack.BannerPlugin('最终版权归**所有')
+  ]
 }
