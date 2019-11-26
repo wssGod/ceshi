@@ -10,24 +10,34 @@
 
 <body>
   <div id ="app"> 
-      <ul>
-        <li v-for="(item, index) in moveList" @click="changeColor(index)" :class="currentIndex == index ? 'active1' : ''">
-            {{item}}
-        </li>
-      </ul>
-      <ul>
-          <li v-for="(item, index) in moveList" @click="changeColor(index)" :class="{'active1': currentIndex == index}">
-            {{item}}
-          </li>
-        </ul>
-      <ul>
-        <li v-for="(item, index) in moveList" @click="changeColor(index)" :class="getMoveClass(index)">
-          {{item}}
-        </li>
-      </ul>
+      <cpn1></cpn1>
   </div>
-
+  <template id="cpn1">
+    <div>
+      <div @click="btn1">按钮1</div>
+      <div @click="btn2">按钮2</div>
+    </div>
+  </template>
+  <template id="cpn2">
+      <div>
+        <div v-if="type == 1">按钮1的内容</div>
+        <div v-if="type == 2">按钮2的内容</div>
+      </div>
+    </template>
   <script>
+    Vue.component('cpn1',{
+      template: '#cpn1',
+      methods: {
+        btn1() {
+          console.log(1)
+          this.$emit('btn1', 1)
+        },
+        btn2(){
+          console.log(2)
+          this.$emit('btn2', 2)
+        }
+      }
+    })
    //创建Vue实例,得到 ViewModel
    const app = new Vue({
     el: '#app',

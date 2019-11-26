@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   // 入口
   entry: './src/main.js', 
@@ -76,6 +77,9 @@ module.exports = {
   // webpack中的一些插件的使用
   plugins:[
     // 对打包的文件进行添加版权的插件,先导入webpack
-    new webpack.BannerPlugin('最终版权归**所有')
+    new webpack.BannerPlugin('最终版权归**所有'),
+    // 将index.html文件打包到dist文件夹只拿过，这个时候可以使用HtmlWebpackPlugin插件,自动生成模板
+    // 先安装 npm install html-webpack-plugin --save-dev
+    new HtmlWebpackPlugin()
   ]
 }
