@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
+// 公共的配置
 module.exports = {
   // 入口
   entry: './src/main.js', 
@@ -91,10 +92,10 @@ module.exports = {
   ],
   // 搭建本地服务器
   //  1. npm install --save-dev webpack-dev-server@2.9.1
-  devServer: {
-    // 服务于哪个文件夹
-    contentBase: './dist',
-    // 是否实时监听
-    inline: true
-  }
+  // devServer: {
+  //   // 服务于哪个文件夹
+  //   contentBase: './dist',
+  //   // 是否实时监听
+  //   inline: true
+  // }
 }
