@@ -2,6 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
+    <div @click="btnClick">点击我请求数据</div>
     <ul>
       <li>
         <a
@@ -84,11 +85,19 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'HelloWorld',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  methods: {
+    btnClick () {
+      axios.get('/api/home.json').then(res => {
+        console.log(res)
+      })
     }
   }
 }

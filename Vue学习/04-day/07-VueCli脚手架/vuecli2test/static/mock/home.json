@@ -1,0 +1,31 @@
+{
+  "code": 200,
+  "success": true,
+  "content": [
+    {
+      "id": 2,
+      "account": "test",
+      "name": "polly6",
+      "password": "123456",
+      "type": 2,
+      "sex": 1,
+      "avatar": "https://www.lyh.red/file/首页轮播_20190418155210_g6fk/20190615120755_ntns.jpg",
+      "phone": null,
+      "wechat": "lyh1333",
+      "qq": null,
+      "email": null,
+      "desc": null,
+      "status": 1,
+      "create_user": 1,
+      "create_time": null,
+      "update_user": 2,
+      "update_time": "2019-07-17T08:00:45.000Z",
+      "flag": 1,
+      "delete_user": null,
+      "delete_time": null,
+      "role_id": 2,
+      "role_name": "测试角色"
+    }
+  ],
+  "message": "操作成功"
+}
