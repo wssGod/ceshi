@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <h1 @click="btnclick">点击我获取数据</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -30,10 +31,20 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  methods:{
+    btnclick() {
+      axios.get('/mock/home.json'),then(
+        result => {
+          console.log(result)
+        }
+      )
+    }
   }
 }
 </script>
