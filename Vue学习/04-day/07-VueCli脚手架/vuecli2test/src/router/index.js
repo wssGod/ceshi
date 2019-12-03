@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Vue from 'vue'
 import Home from '../components/Home'
 import About from '../components/About'
+import User from '../components/User'
 // 1.通过Vue.use（插件），安装插件
 Vue.use(VueRouter)
 
@@ -16,11 +17,30 @@ const routes = [
   },
   {
     path: '/home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: '',
+        redirect: 'news'
+      },
+      {
+        path: 'news',
+        component: () => import('../components/HomeNews')
+      }
+    ]
   },
   {
     path: '/about',
     component: About
+  },
+  // 动态路由
+  {
+    path: '/user/:userId',
+    component: User
+  },
+  {
+    path: '/profile',
+    component: () => import('../components/Profile')
   }
 ]
 
