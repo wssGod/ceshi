@@ -14,6 +14,7 @@
     }" replace active-class="active">档案</router-link>
     <h2>{{ $route.params.userId }}</h2>
     <h2>{{ $route.query.name }}{{ $route.query.age}}</h2>
+    <button @click="routerClick">路由</button>
     <router-view></router-view>
   </div>
 </template>
@@ -30,6 +31,10 @@ export default {
   methods: {
     btnClick () {
       this.$router.push('/home')
+    },
+    routerClick () {
+      console.log(this.$router)
+      console.log(this.name)
     }
   }
 }

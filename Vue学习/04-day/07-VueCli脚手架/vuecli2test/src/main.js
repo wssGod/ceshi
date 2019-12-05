@@ -5,6 +5,8 @@ import App from './App'
 import router from './router/index.js'
 
 Vue.config.productionTip = false
+// 定义全局的Vue属性
+Vue.prototype.name = 'wss'
 
 /* eslint-disable no-new */
 new Vue({

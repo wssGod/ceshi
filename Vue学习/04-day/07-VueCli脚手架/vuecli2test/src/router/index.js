@@ -18,6 +18,10 @@ const routes = [
   {
     path: '/home',
     component: Home,
+    // 原数据
+    meta: {
+      title: '首页'
+    },
     children: [
       {
         path: '',
@@ -31,15 +35,24 @@ const routes = [
   },
   {
     path: '/about',
+    meta: {
+      title: '关于'
+    },
     component: About
   },
   // 动态路由
   {
     path: '/user/:userId',
+    meta: {
+      title: '用户'
+    },
     component: User
   },
   {
     path: '/profile',
+    meta: {
+      title: '档案'
+    },
     component: () => import('../components/Profile')
   }
 ]
@@ -49,6 +62,14 @@ const router = new VueRouter({
   routes,
   // 使用H5的history模式(地址栏中不会有#号)
   mode: 'history'
+})
+// 在路由跳转之前指向的方法
+router.beforeEach((to, from, next) => {
+  // 从from 跳到to
+  // document.title = to.meta.title
+  document.title = to.matched[0].meta.title
+  // 默认是指向next的但是我们写方法了会覆盖掉所以要手动执行一下，若不执行路由不会跳转
+  next()
 })
 
 // 3.将router对象传入到Vue实例中
