@@ -15,7 +15,9 @@
     <h2>{{ $route.params.userId }}</h2>
     <h2>{{ $route.query.name }}{{ $route.query.age}}</h2>
     <button @click="routerClick">路由</button>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 

@@ -30,6 +30,10 @@ const routes = [
       {
         path: 'news',
         component: () => import('../components/HomeNews')
+      },
+      {
+        path: 'message',
+        component: () => import('../components/HomeMessage')
       }
     ]
   },
@@ -65,11 +69,16 @@ const router = new VueRouter({
 })
 // 在路由跳转之前指向的方法
 router.beforeEach((to, from, next) => {
+  console.log(111)
   // 从from 跳到to
   // document.title = to.meta.title
   document.title = to.matched[0].meta.title
   // 默认是指向next的但是我们写方法了会覆盖掉所以要手动执行一下，若不执行路由不会跳转
   next()
+})
+
+router.afterEach((to, from) => {
+  console.log(22222)
 })
 
 // 3.将router对象传入到Vue实例中
