@@ -13,8 +13,22 @@
 <script>
 export default {
   name: 'Home',
+  data () {
+    return {
+      path: '/home/news'
+    }
+  },
   created () {
     console.log('created')
+  },
+  // 路由处于活跃状态时调用
+  activated () {
+    this.$router.push(this.path)
+  },
+  // 页面内路由
+  beforeRouteLeave (to, from, next) {
+    console.log(this.$route.path)
+    next()
   }
 }
 </script>
