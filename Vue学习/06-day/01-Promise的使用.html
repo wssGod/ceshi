@@ -37,6 +37,37 @@
     }).catch((data) => {
       console.log(data)
     })
+    // Promise 的第二种写法 then(函数1（resolve时调用）， 函数2（reject时调用）)
+    new Promise((resolve,reject) => {
+      setTimeout(() => {
+        // resolve()
+        reject('err')
+      }, 1000)
+    }).then(() => {
+      console.log('调用了resolve')
+    }, () => {
+      console.log('调用了reject')
+    })
+    // Promise链式调用的简写，当不需要异步操作时，只要对结果进行处理的话
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('哈哈')
+      }, 1000)
+    }).then(data => {
+      return Promise.resolve(data + '11111')
+    }).then(data => {
+      console.log(data + '2222')
+    }) 
+    // 也可以直接return
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('哈哈')
+      }, 1000)
+    }).then(data => {
+      return data + '11111'
+    }).then(data => {
+      console.log(data + '2222')
+    }) 
     </script>
 </body>
 </html>
