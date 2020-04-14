@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>场景中添加球体</title>
+  <script src="../js/three.js"></script>
+  <script src="../js/controls/OrbitControls.js"></script>
+  <style>
+    body{
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    /**
+     * 创建场景
+     */
+    var scene = new THREE.Scene()
+    // 1.网格模型
+    // SphereGeometry球体（球体半径，球面精度）
+    /**
+     * 1.长方体 参数：长，宽，高
+     * var geometry = new THREE.BoxGeometry(100, 100, 100);
+     * 2.球体 参数：半径60  经纬度细分数40,40
+     * var geometry = new THREE.SphereGeometry(60, 40, 40);
+     * 3.圆柱  参数：圆柱面顶部、底部直径50,50   高度100  圆周分段数
+     * var geometry = new THREE.CylinderGeometry( 50, 50, 100, 25 );
+     * 4.正八面体
+     * var geometry = new THREE.OctahedronGeometry(50);
+     * 5.正十二面体
+     * var geometry = new THREE.DodecahedronGeometry(50);
+     * 6.正二十面体
+     * var geometry = new THREE.IcosahedronGeometry(50);
+     */
+    // 立方体
+    var geometry1 = new THREE.BoxGeometry(100, 100, 100);
+    var material1 = new THREE.MeshLambertMaterial({
+      color: 0xff0000
+    })
+    var mesh1 = new THREE.Mesh(geometry1, material1)
+    scene.add(mesh1)
+    var geometry = new THREE.SphereGeometry(60, 40, 40)
+    var material = new THREE.MeshLambertMaterial({
+      color: 0x0000ff
+    })
+    var mesh = new THREE.Mesh(geometry, material)
+    mesh.translateY(120);
+    scene.add(mesh)
+
+    // 圆柱网格模型
+    var geometry3 = new THREE.CylinderGeometry(50, 50, 100, 25);
+    var material3 = new THREE.MeshLambertMaterial({
+      color: 0xffff00
+    });
+    var mesh3 = new THREE.Mesh(geometry3, material3); //网格模型对象Mesh
+    // mesh3.translateX(120); //球体网格模型沿Y轴正方向平移120
+    mesh3.position.set(0,0,-200);//设置mesh3模型对象的xyz坐标为120,0,0
+    scene.add(mesh3); //
+
+    // 2.光源
+    var point = new THREE.PointLight(0xffffff)
+    point.position.set(400, 200, 300)
+    scene.add(point)
+    // 环境光
+    var ambient = new THREE.AmbientLight(0x444444)
+    scene.add(ambient)
+    // 插入坐标系
+    var axisHelper = new THREE.AxesHelper(250);
+    scene.add(axisHelper);
+    /**
+     * 相机设置
+     */
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+    var k = width/height;
+    var s = 200;
+    var camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000)
+    camera.position.set(100, 200, 500)
+    camera.lookAt(scene.position);
+    /**
+     * 创建渲染器对象
+     */
+     var renderer = new THREE.WebGLRenderer();
+    renderer.setSize(width, height);//设置渲染区域尺寸
+    renderer.setClearColor(0xb9d3ff, 1); //设置背景颜色
+    document.body.appendChild(renderer.domElement); //body元素中插入canvas对象
+    //执行渲染操作   指定场景、相机作为参数
+    function render() {
+      renderer.render(scene, camera)//请求再次执行渲染函数render
+      requestAnimationFrame(render)
+    }
+    render();
+    var controls = new THREE.OrbitControls(camera, renderer.domElement)//创建控件对象
+  </script>
+</body>
+</html>
