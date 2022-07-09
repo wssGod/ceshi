@@ -35,6 +35,12 @@
     <div :style="styleObj">动态设置style需求-对象写法</div>
     <div :style="styleArray">动态设置style需求-数组写法</div>
     <span v-bind:title="message">123123</span>
+    <div v-if="test">
+      <h1>VUE</h1>
+    </div>
+    <button @click="control">控制</button>
+    <button v-show="false" ref="button">输出</button>
+    <p v-html="myhtml"></p>
   </div>
   <script type="text/javascript">
   /*
@@ -48,6 +54,7 @@
     var vm = new Vue({
       el: '#box',
       data: {
+        test: false,
         isActive: true,
         dataList: ['11111','222','3333'],
         myhtml: "<b>11111</b>",
@@ -68,6 +75,12 @@
       methods: {
         handlerClick(){
           console.log('1111')
+        },
+        control() {
+          this.test = !this.test
+          console.log(this.$refs.button.click(
+            console.log(111)
+          ))
         }
       }
     })

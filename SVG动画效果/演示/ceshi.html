@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <link rel="stylesheet" href="http://s0.ifengimg.com/2014/10/11/common_column_27f5e1ee.css">
+    <link href="http://s0.ifengimg.com/2014/10/31/main_842e7599.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://s0.ifengimg.com/static/js/jquery-1.7.2.min_c4de8813.js"></script>
+    <script type="text/javascript" src="http://s0.ifengimg.com/static/js/generalSearch_74a07822.js"></script>
+</head>
+ 
+<body class="bg">
+<div class="beforeafter" id="beforeafter">
+    <img src="http://s0.ifengimg.com/2014/10/31/39453af34f3c8422beb4f76719c8e534.jpg" rel="before" alt="" width="610" height="420" />
+    <img src="http://s0.ifengimg.com/2014/10/31/51aa50777dcd58c5ce8028911b07f1a4.jpg" rel="after" alt="" width="610" height="420" />
+</div>
+</body>
+<script language="javascript">
+    (function($){$(function(){
+        $(".beforeafter").each(function(){
+            var $before = $(this).find("img[rel=before]"),
+                    $after = $(this).find("img[rel=after]");
+            if ($before.length === 1 && $after.length === 1) {
+                $(this)
+                        .width($before.width())
+                        .height($before.height())
+                        .append("<div class='after'></div><div class='before'></div><div class='help'>鼠标滑过以对比浓雾前后的南京</div>")
+                        .find(".after")
+                        .css("background-image", "url(" + $after.attr("src") + ")")
+                        .width($after.width())
+                        .height($after.height())
+                        .end()
+                        .find(".before")
+                        .css("background-image", "url(" + $before.attr("src") + ")")
+                        .width($before.width())
+                        .height($before.height())
+                        .end()
+                        .find("img")
+                        .remove()
+                        .end()
+                        .mousemove(function(event){
+                            var offset = $(this).offset().left;
+                            if ((event.clientX - offset) < ($(this).find(".after").width() -50) && (event.clientX - offset) > 50) {
+                                $(this)
+                                        .find(".before")
+                                        .width(event.clientX - offset);
+                            }
+                        })
+                        .hover(function(){
+                            $(this)
+                                    .find(".help")
+                                    .animate({"opacity": 0}, 400, function(){
+                                        $(this).find(".help").remove();
+                                    });
+                        });
+            }
+        });
+    });})(jQuery)
+</script>
+<script>
+    jQuery(function(){
+        var situation_city = jQuery("#situation_city li");
+        jQuery("#situation_city li").click(function(){
+            var index = jQuery(this).index();
+            situation_city.removeClass("current").eq(index).addClass("current");
+            jQuery(".html-fragment").hide().eq(index).show();
+        });
+    });
+</script>
+</html>
