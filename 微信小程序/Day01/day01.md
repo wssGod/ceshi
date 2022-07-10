@@ -21,4 +21,23 @@
 - 1.使用浏览器打开https://mp.weixin.qq.com网址，点击【立即注册】即可进入到小程序开发账号的注册流程。
 - 2.获取小程序的APPID：开发-开发设置，创建小程序项目的时候，需要用到APPID
 
-P4 2:15
+## 3.小程序的代码构成
+- pages:用来存放所有小程序的页面
+- utils:用来存放工具性质的模块（例如：格式化时间的自定义模块）
+- app.js:小程序项目的入口文件
+- app.json:小程序项目的全局配置文件
+- app.wxss:小程序项目的全局样式文件
+- project.config.json:项目的配置文件
+- sitemap.json:用来配置小程序及其页面是否被微信索引
+
+![alt](./images/1-5-1.png)
+
+![alt](./images/1-5-2.png)
+
+![alt](./images/1-5-3.png)
+
+![alt](./images/1-5-5.png)
+```
+不希望被微信索引的话讲allow改为disallow
+```
+![alt](./images/1-5-6.png)
